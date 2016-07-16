@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+  http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+  http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<context:annotation-config />
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+	<context:component-scan base-package="com.flp.capstore.controller"></context:component-scan>
+	<context:component-scan base-package="com.flp.capstore.service"></context:component-scan>
+	<context:component-scan base-package="com.flp.capstore.dao"></context:component-scan>
+	<context:component-scan base-package="com.flp.capstore.domain"></context:component-scan>
+	<context:component-scan base-package="com.flp.capstore.test.dao"></context:component-scan>
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:db.properties</value>
+				<value>classpath:log4j.properties</value>
+				<value>classpath:config.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean class="org.springframework.context.support.ResourceBundleMessageSource"
+		id="messageSource">
+		<property name="basename" value="messages" />
+		<property name="alwaysUseMessageFormat" value="true" />
+	</bean>
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	</bean>
+	<!-- declare datasource bean -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${driverName}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+	</bean>
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"></bean>
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="persistenceUnit"></property>
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="jpaVendorAdapter" ref="jpavendoradaptor"></property>
+		<property name="jpaPropertyMap">
+			<map>
+				<entry key="hibernate.dialect" value="${hibernate.dialect}"></entry>
+				<entry key="show_sql" value="true"></entry>
+				<entry key="hibernate.format_sql" value="true"></entry>
+				<entry key="hibernate.hbm2ddl.auto" value="update"></entry>
+			</map>
+		</property>
+	</bean>
+	<jpa:repositories base-package="com.flp.capstore.dao"
+		query-lookup-strategy="create-if-not-found"></jpa:repositories>
+	<bean id="jpavendoradaptor"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="showSql" value="true"></property>
+	</bean>
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+</beans>
