@@ -1,0 +1,31 @@
+.panel-login {
+	border-color: #000000;
+}
+
+.panel-login>.panel-heading>.forgotShit {
+	float: right;
+	font-size: 80%;
+	position: relative;
+	top: -10px
+}
+.panel-login>.panel-heading>.forgotShit>a{
+	color:#d7d7d7;
+}
+.panel-login>.panel-heading {
+	color: #ffffff;
+	background-color: #000000;
+	border-color: #000000;
+}
+
+.panel-login>.panel-heading+.panel-collapse>.panel-body {
+	border-top-color: #808080;
+}
+
+.panel-login>.panel-heading .badge {
+	color: #c0c0c0;
+	background-color: #000000;
+}
+
+.panel-login>.panel-footer+.panel-collapse>.panel-body {
+	border-bottom-color: #000000;
+}

@@ -18,26 +18,26 @@ public class Contact implements Serializable {
 	@Column(name="contact_id")
 	private String contactId;
 
-	@Column(name="contact_name")
-	private String contactName;
-
 	private String addressLine1;
 
 	private String addressLine2;
 
 	private String city;
 
+	@Column(name="contact_name")
+	private String contactName;
+
 	private String state;
+
+	@Column(name="upd_tsp")
+	private Timestamp updTsp;
 
 	private int zip;
 
 	//bi-directional many-to-one association to User
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_name")
 	private User user;
-
-	@Column(name="upd_tsp")
-	private Timestamp updTsp;
 
 	public Contact() {
 	}
@@ -113,4 +113,5 @@ public class Contact implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
 }

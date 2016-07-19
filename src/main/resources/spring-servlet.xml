@@ -34,6 +34,12 @@
 	</bean>
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
 	</bean>
 	<!-- declare datasource bean -->
 	<bean id="dataSource"

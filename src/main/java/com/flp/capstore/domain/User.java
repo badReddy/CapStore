@@ -13,6 +13,7 @@ public class User {
 	private String status;
 	private String joinedOn;
 	private List<Contact> contacts;
+	List<String> roles;
 	
 	public String getUserName() {
 		return userName;
@@ -68,5 +69,10 @@ public class User {
 	public void setContacts(List<Contact> contacts) {
 		this.contacts = contacts;
 	}
-	
+	public List<String> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
 }

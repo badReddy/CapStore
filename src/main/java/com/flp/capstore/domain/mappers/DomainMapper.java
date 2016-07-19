@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.flp.capstore.domain.Contact;
 import com.flp.capstore.domain.User;
+import com.flp.capstore.entity.UserRoleAssoc;
 
 public class DomainMapper {
 	
@@ -23,7 +24,6 @@ public class DomainMapper {
 		userDomain.setLastName(userEntity.getLastName());
 		userDomain.setEmail(userEntity.getEmail());
 		userDomain.setPhone(String.valueOf(userEntity.getPhoneNumber()));
-		userDomain.setRole(userEntity.getRole());
 		userDomain.setStatus(userEntity.getStatus());
 		userDomain.setJoinedOn(timeStampFormat.format(userEntity.getDateJoined()));
 		List<Contact> contacts = new ArrayList<Contact>();
@@ -32,7 +32,12 @@ public class DomainMapper {
 			contact = mapContactEntityToDomain(contactEntity);
 			contacts.add(contact);
 		}
+		List<String> roles = new ArrayList<String>();
+		for(UserRoleAssoc assoc:userEntity.getUserRoleAssocs()){
+			roles.add(assoc.getRole().getRoleType());
+		}
 		userDomain.setContacts(contacts);
+		userDomain.setRoles(roles);
 		logger.info("In mapUserEntityToDomain(). Mapping successful for--> "+userEntity.getUserName());
 		return userDomain;
 		

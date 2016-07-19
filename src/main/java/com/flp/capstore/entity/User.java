@@ -1,13 +1,16 @@
 package com.flp.capstore.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
-import java.sql.Timestamp;
 import java.math.BigInteger;
-import java.util.List;
+import java.sql.Timestamp;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 
 /**
@@ -21,42 +24,42 @@ public class User implements Serializable {
 
 	@Id
 	@Column(name="user_name")
-	@NotEmpty
 	private String userName;
-	
+
+	@Column(name="date_joined")
+	private Timestamp dateJoined;
+
+	private String email;
+
 	@Column(name="first_name")
 	private String firstName;
-	
+
 	@Column(name="last_name")
 	private String lastName;
 
-	private String email;
-	
+	private String password;
+
 	@Column(name="phone_number")
 	private BigInteger phoneNumber;
-	
-	private String role;
-	
-	private String status;
-	
-	private String password;
-	
-	@Column(name="security_question")
-	private String securityQuestion;
-	
+
 	@Column(name="security_answer")
 	private String securityAnswer;
-	
-	//bi-directional many-to-one association to Contact
-	@OneToMany(mappedBy="user",fetch = FetchType.EAGER)
-	private List<Contact> contacts;
-	
-	@Column(name="date_joined")
-	private Timestamp dateJoined;
+
+	@Column(name="security_question")
+	private String securityQuestion;
+
+	private String status;
 
 	@Column(name="upd_tsp")
 	private Timestamp updTsp;
 
+	//bi-directional many-to-one association to Contact
+	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
+	private Set<Contact> contacts;
+
+	//bi-directional many-to-one association to UserRoleAssoc
+	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
+	private Set<UserRoleAssoc> userRoleAssocs;
 
 	public User() {
 	}
@@ -117,14 +120,6 @@ public class User implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getRole() {
-		return this.role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
 	public String getSecurityAnswer() {
 		return this.securityAnswer;
 	}
@@ -157,26 +152,49 @@ public class User implements Serializable {
 		this.updTsp = updTsp;
 	}
 
-	public List<Contact> getContacts() {
+	public Set<Contact> getContacts() {
 		return this.contacts;
 	}
 
-	public void setContacts(List<Contact> contacts) {
+	public void setContacts(Set<Contact> contacts) {
 		this.contacts = contacts;
 	}
 
-	public Contact addContact(Contact contact) {
-		getContacts().add(contact);
-		contact.setUser(this);
+	public Contact addContacts(Contact contacts) {
+		getContacts().add(contacts);
+		contacts.setUser(this);
 
-		return contact;
+		return contacts;
 	}
 
-	public Contact removeContact(Contact contact) {
-		getContacts().remove(contact);
-		contact.setUser(null);
+	public Contact removeContacts(Contact contacts) {
+		getContacts().remove(contacts);
+		contacts.setUser(null);
 
-		return contact;
+		return contacts;
+	}
+
+
+	public Set<UserRoleAssoc> getUserRoleAssocs() {
+		return this.userRoleAssocs;
+	}
+
+	public void setUserRoleAssocs(Set<UserRoleAssoc> userRoleAssocs) {
+		this.userRoleAssocs = userRoleAssocs;
+	}
+
+	public UserRoleAssoc addUserRoleAssoc(UserRoleAssoc userRoleAssoc) {
+		getUserRoleAssocs().add(userRoleAssoc);
+		userRoleAssoc.setUser(this);
+
+		return userRoleAssoc;
+	}
+
+	public UserRoleAssoc removeUserRoleAssoc(UserRoleAssoc userRoleAssoc) {
+		getUserRoleAssocs().remove(userRoleAssoc);
+		userRoleAssoc.setUser(null);
+
+		return userRoleAssoc;
 	}
 
 }
