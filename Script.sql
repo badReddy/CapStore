@@ -1,4 +1,5 @@
 --<ScriptOptions statementTerminator=";"/>
+--<sql script>
 
 ALTER TABLE `capstore`.`user_role_assoc` DROP PRIMARY KEY;
 
