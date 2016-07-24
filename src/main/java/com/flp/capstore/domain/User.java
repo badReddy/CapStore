@@ -13,6 +13,8 @@ public class User {
 	private String status;
 	private String joinedOn;
 	private List<Contact> contacts;
+	private String password;
+	
 	List<String> roles;
 	
 	public String getUserName() {
@@ -48,6 +50,12 @@ public class User {
 	public String getRole() {
 		return role;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public void setRole(String role) {
 		this.role = role;
 	}
@@ -75,4 +83,6 @@ public class User {
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
 	}
+	
+	
 }

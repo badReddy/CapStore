@@ -1,5 +1,7 @@
 package com.flp.capstore.service;
 
+import javax.persistence.Entity;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired private UserDao dao;
 	static Logger logger = Logger.getLogger(UserService.class.getName());
+	
 	@Override
 	public User fetchUser(String userName) throws Exception {
 		User userResponse = new User();
@@ -26,6 +29,16 @@ public class UserServiceImpl implements UserService{
 			throw e;
 		}
 		return userResponse;
+	}
+	
+	@Override
+	public void addUser(com.flp.capstore.entity.User user) {
+		try {
+			dao.saveAndFlush(user);
+		}
+		catch (Exception e) {
+			throw e;
+		}
 	}
 
 }
