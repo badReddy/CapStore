@@ -113,8 +113,70 @@
 					</div>
 				</div>
 				<div class="panel-body">
+					<script>
+						function validateSignUpForm() {
+							var email=document["signupform"]["email"].value;
+							var firstName=document["signupform"]["firstName"].value;
+							var lastName=document["signupform"]["lastName"].value;
+							var password=document["signupform"]["password"].value;
+							var userName=document["signupform"]["userName"].value;
+							var atpos=email.indexOf("@");  
+							var dotpos=email.lastIndexOf(".");
+							var alphregex = /^[a-zA-Z]*$/;
+							if (email==null || email=="") {
+							  alert("Email Id cannot be blank");
+							  signupform.email.focus();
+							  return false;
+							}
+							else if (atpos<1 || dotpos<atpos+2 || (dotpos+2)>=(email.length)) {  
+								alert("Please enter a valid email address");
+								signupform.email.focus();
+								return false;  
+							}
+							else if (firstName==null || firstName=="") {
+								alert("Please enter your first name");
+								signupform.firstName.focus();
+								return false;
+							}
+							else if (firstName.length<2 || firstName.length>16 || (!alphregex.test(firstName))) {
+								alert("Please enter a valid first name");
+								signupform.firstName.focus();
+								return false;
+							}
+							else if (lastName==null || lastName=="") {
+								alert("Please enter your last name");
+								signupform.lastName.focus();
+								return false;
+							}
+							else if (lastName.length<2 || lastName.length>16 || (!alphregex.test(lastName))) {
+								alert("Please enter a valid last name");
+								signupform.lastName.focus();
+								return false;
+							}
+							else if (password==null || password=="") {
+								alert("Please enter a password");
+								signupform.password.focus();
+								return false;
+							}
+							else if (password.length<6 || password.length>16) {
+								alert("Password length should be between 6 to 16 characters.");
+								signupform.password.focus();
+								return false;
+							}
+							else if (userName==null || userName=="") {
+								alert("Please enter a username");
+								signupform.userName.focus();
+								return false;
+							}
+							else if (userName.length<6 || userName.length>16) {
+								alert("username should be between 6 to 16 characters.");
+								signupform.userName.focus();
+								return false;
+							}
+						}
+					</script>
 					<c:url var="signUpUrl" value="/signup" />
-					<form id="signupform" class="form-horizontal" role="form" action="${signUpUrl}" method="post">
+					<form id="signupform" name="signupform" class="form-horizontal" role="form" action="${signUpUrl}" method="post" onsubmit="return validateSignUpForm()">
 						<div id="signupalert" style="display: none" class="alert alert-danger">
 							<p>Error:</p>
 							<span></span>
@@ -152,7 +214,7 @@
 						<div class="form-group">
 							<!-- Button -->
 							<div class="col-md-offset-3 col-md-9">
-								<button id="btn-signup" type="submit" class="btn btn-info">
+								<button id="btn-signup" type="submit" name="submit" value="submit" class="btn btn-info">
 									<i class="icon-hand-right"></i> &nbsp; Sign Up
 								</button>
 							</div>
