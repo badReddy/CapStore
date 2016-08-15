@@ -6,5 +6,11 @@
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
 	<persistence-unit name="persistenceUnit">
+		<class>com.flp.capstore.entity.Contact</class>
+		<class>com.flp.capstore.entity.Role</class>
+		<class>com.flp.capstore.entity.SecurityQuestion</class>
+		<class>com.flp.capstore.entity.User</class>
+		<class>com.flp.capstore.entity.UserRoleAssoc</class>
+		<class>com.flp.capstore.entity.UserSecurityAssoc</class>
 	</persistence-unit> 
 </persistence>

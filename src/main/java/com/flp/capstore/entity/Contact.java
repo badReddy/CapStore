@@ -35,9 +35,10 @@ public class Contact implements Serializable {
 	private int zip;
 
 	//bi-directional many-to-one association to User
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="user_name")
 	private User user;
+
 
 	public Contact() {
 	}

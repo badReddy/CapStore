@@ -2,18 +2,24 @@ package com.flp.capstore.domain;
 
 import java.util.List;
 
-public class User {
+import org.hibernate.validator.constraints.NotEmpty;
 
+public class UserDTO {
+
+	@NotEmpty
 	private String userName;
 	private String firstName;
 	private String lastName;
+	@NotEmpty
 	private String email;
 	private String phone;
 	private String role;
 	private String status;
 	private String joinedOn;
-	private List<Contact> contacts;
+	private List<ContactDTO> contacts;
 	List<String> roles;
+	@NotEmpty
+	private String password; 
 	
 	public String getUserName() {
 		return userName;
@@ -63,10 +69,10 @@ public class User {
 	public void setJoinedOn(String joinedOn) {
 		this.joinedOn = joinedOn;
 	}
-	public List<Contact> getContacts() {
+	public List<ContactDTO> getContacts() {
 		return contacts;
 	}
-	public void setContacts(List<Contact> contacts) {
+	public void setContacts(List<ContactDTO> contacts) {
 		this.contacts = contacts;
 	}
 	public List<String> getRoles() {
@@ -75,4 +81,11 @@ public class User {
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 }

@@ -17,12 +17,16 @@
 		<csrf />
 	</http>
 	<authentication-manager>
-		<authentication-provider user-service-ref="customUserRoleService" />
+		<authentication-provider user-service-ref="customUserRoleService">
+			<password-encoder ref="bcryptEncoder" />
+		</authentication-provider>
 	</authentication-manager>
 
 	<beans:bean id="customUserRoleService"
 		class="com.flp.capstore.service.CustomUserRoleService" />
 	<beans:bean id="customSuccessHandler"
 		class="com.flp.capstore.configuration.CustomSuccessHandler" />
+	<beans:bean id="bcryptEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 </beans:beans>
       

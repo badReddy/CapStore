@@ -1,6 +1,6 @@
 package com.flp.capstore.domain;
 
-public class Contact {
+public class ContactDTO {
 
 	private String name;
 	private String addressLine1;

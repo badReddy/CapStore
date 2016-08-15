@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.flp.capstore.dao.ContactDao;
-import com.flp.capstore.domain.Contact;
+import com.flp.capstore.domain.ContactDTO;
 import com.flp.capstore.domain.mappers.DomainMapper;
 import com.flp.capstore.service.interfaces.ContactService;
 
@@ -15,8 +15,8 @@ public class ContactServiceImpl implements ContactService{
 	static Logger logger = Logger.getLogger(ContactService.class.getName());
 	@Autowired ContactDao dao;
 	@Override
-	public Contact fetchContact(String contactID) throws Exception {
-		Contact contactResponse = new Contact();
+	public ContactDTO fetchContact(String contactID) throws Exception {
+		ContactDTO contactResponse = new ContactDTO();
 		try{
 			logger.info("In ContactServiceImpl.fetchContact(). Ready to call DAO. ");
 			contactResponse = DomainMapper.mapContactEntityToDomain(dao.fetchContact(contactID));

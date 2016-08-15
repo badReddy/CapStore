@@ -50,10 +50,10 @@ public class CommonController {
 		return "redirect:/login?logout";
 	}
 
-	    @RequestMapping(value="/pageNotFound")
-	    public String handlePageNotFound(ModelMap model) {
-	        return "redirect:/index?invalidURL";
-	    }
+	@RequestMapping(value="/pageNotFound")
+	public String handlePageNotFound(ModelMap model) {
+		return "redirect:/index?invalidURL";
+	}
 	private String getPrincipal(){
 		String userName = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

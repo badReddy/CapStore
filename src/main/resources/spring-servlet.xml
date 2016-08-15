@@ -12,11 +12,13 @@
 	<context:annotation-config />
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
+	
 	<context:component-scan base-package="com.flp.capstore.controller"></context:component-scan>
 	<context:component-scan base-package="com.flp.capstore.service"></context:component-scan>
 	<context:component-scan base-package="com.flp.capstore.dao"></context:component-scan>
 	<context:component-scan base-package="com.flp.capstore.domain"></context:component-scan>
 	<context:component-scan base-package="com.flp.capstore.test.dao"></context:component-scan>
+	
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">

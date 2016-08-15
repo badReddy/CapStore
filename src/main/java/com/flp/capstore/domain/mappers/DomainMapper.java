@@ -7,17 +7,19 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.flp.capstore.domain.Contact;
-import com.flp.capstore.domain.User;
+import com.flp.capstore.domain.ContactDTO;
+import com.flp.capstore.domain.UserDTO;
+import com.flp.capstore.entity.Contact;
+import com.flp.capstore.entity.User;
 import com.flp.capstore.entity.UserRoleAssoc;
 
 public class DomainMapper {
 	
 	static Logger logger = Logger.getLogger(DomainMapper.class.getName());
 	
-	public static User mapUserEntityToDomain(com.flp.capstore.entity.User userEntity) throws Exception{
+	public static UserDTO mapUserEntityToDomain(User userEntity) throws Exception{
 		logger.info("In mapUserEntityToDomain(). Here to map userEntity to Domain for--> "+userEntity.getUserName());
-		User userDomain = new User();
+		UserDTO userDomain = new UserDTO();
 		DateFormat timeStampFormat = new SimpleDateFormat("yyyy-MM-dd");
 		userDomain.setUserName(userEntity.getUserName());
 		userDomain.setFirstName(userEntity.getFirstName());
@@ -26,9 +28,9 @@ public class DomainMapper {
 		userDomain.setPhone(String.valueOf(userEntity.getPhoneNumber()));
 		userDomain.setStatus(userEntity.getStatus());
 		userDomain.setJoinedOn(timeStampFormat.format(userEntity.getDateJoined()));
-		List<Contact> contacts = new ArrayList<Contact>();
-		for(com.flp.capstore.entity.Contact contactEntity:userEntity.getContacts()){
-			Contact contact = new Contact();
+		List<ContactDTO> contacts = new ArrayList<ContactDTO>();
+		for(Contact contactEntity:userEntity.getContacts()){
+			ContactDTO contact = new ContactDTO();
 			contact = mapContactEntityToDomain(contactEntity);
 			contacts.add(contact);
 		}
@@ -43,9 +45,9 @@ public class DomainMapper {
 		
 	}
 
-	public static Contact mapContactEntityToDomain(com.flp.capstore.entity.Contact contactEntity) throws Exception{
+	public static ContactDTO mapContactEntityToDomain(Contact contactEntity) throws Exception{
 		logger.info("In mapContactEntityToDomain(). Here to map contactEntity to Domain for--> "+contactEntity.getContactId());
-		Contact contactDomain = new Contact();
+		ContactDTO contactDomain = new ContactDTO();
 		DateFormat timeStampFormat = new SimpleDateFormat("yyyy-MM-dd");
 		contactDomain.setName(contactEntity.getContactName());
 		contactDomain.setAddressLine1(contactEntity.getAddressLine1());
@@ -56,5 +58,15 @@ public class DomainMapper {
 		contactDomain.setLastUpdatedOn(timeStampFormat.format(contactEntity.getUpdTsp()));
 		logger.info("In mapContactEntityToDomain(). Mapping successful for--> "+contactEntity.getContactId());
 		return contactDomain;
+	}
+
+	public static User mapUserDomainToEntity(UserDTO user) {
+		User userEntity = new User();
+		userEntity.setFirstName(user.getFirstName());
+		userEntity.setLastName(user.getLastName());
+		userEntity.setEmail(user.getEmail());
+		userEntity.setPassword(user.getPassword());
+		userEntity.setUserName(user.getUserName());
+		return userEntity;
 	}
 }

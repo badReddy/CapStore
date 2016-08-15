@@ -2,7 +2,7 @@ package com.flp.capstore.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -22,8 +22,8 @@ public class Role implements Serializable {
 	private String roleType;
 
 	//bi-directional many-to-one association to UserRoleAssoc
-	@OneToMany(mappedBy="role",fetch=FetchType.EAGER)
-	private List<UserRoleAssoc> userRoleAssocs;
+	@OneToMany(mappedBy="role", fetch=FetchType.EAGER)
+	private Set<UserRoleAssoc> userRoleAssocs;
 
 	public Role() {
 	}
@@ -44,11 +44,11 @@ public class Role implements Serializable {
 		this.roleType = roleType;
 	}
 
-	public List<UserRoleAssoc> getUserRoleAssocs() {
+	public Set<UserRoleAssoc> getUserRoleAssocs() {
 		return this.userRoleAssocs;
 	}
 
-	public void setUserRoleAssocs(List<UserRoleAssoc> userRoleAssocs) {
+	public void setUserRoleAssocs(Set<UserRoleAssoc> userRoleAssocs) {
 		this.userRoleAssocs = userRoleAssocs;
 	}
 

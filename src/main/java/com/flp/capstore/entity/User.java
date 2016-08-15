@@ -1,16 +1,10 @@
 package com.flp.capstore.entity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.math.BigInteger;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 
 
 /**
@@ -42,24 +36,22 @@ public class User implements Serializable {
 	@Column(name="phone_number")
 	private BigInteger phoneNumber;
 
-	@Column(name="security_answer")
-	private String securityAnswer;
-
-	@Column(name="security_question")
-	private String securityQuestion;
-
 	private String status;
 
 	@Column(name="upd_tsp")
 	private Timestamp updTsp;
 
 	//bi-directional many-to-one association to Contact
-	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
 	private Set<Contact> contacts;
 
 	//bi-directional many-to-one association to UserRoleAssoc
-	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
 	private Set<UserRoleAssoc> userRoleAssocs;
+
+	//bi-directional one-to-one association to UserSecurityAssoc
+	@OneToOne(mappedBy="user")
+	private UserSecurityAssoc userSecurityAssoc;
 
 	public User() {
 	}
@@ -120,22 +112,6 @@ public class User implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getSecurityAnswer() {
-		return this.securityAnswer;
-	}
-
-	public void setSecurityAnswer(String securityAnswer) {
-		this.securityAnswer = securityAnswer;
-	}
-
-	public String getSecurityQuestion() {
-		return this.securityQuestion;
-	}
-
-	public void setSecurityQuestion(String securityQuestion) {
-		this.securityQuestion = securityQuestion;
-	}
-
 	public String getStatus() {
 		return this.status;
 	}
@@ -174,7 +150,6 @@ public class User implements Serializable {
 		return contacts;
 	}
 
-
 	public Set<UserRoleAssoc> getUserRoleAssocs() {
 		return this.userRoleAssocs;
 	}
@@ -195,6 +170,14 @@ public class User implements Serializable {
 		userRoleAssoc.setUser(null);
 
 		return userRoleAssoc;
+	}
+
+	public UserSecurityAssoc getUserSecurityAssoc() {
+		return this.userSecurityAssoc;
+	}
+
+	public void setUserSecurityAssoc(UserSecurityAssoc userSecurityAssoc) {
+		this.userSecurityAssoc = userSecurityAssoc;
 	}
 
 }

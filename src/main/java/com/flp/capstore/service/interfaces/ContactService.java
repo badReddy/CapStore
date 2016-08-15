@@ -1,8 +1,8 @@
 package com.flp.capstore.service.interfaces;
 
-import com.flp.capstore.domain.Contact;
+import com.flp.capstore.domain.ContactDTO;
 
 public interface ContactService {
 
-	public Contact fetchContact(String contactID) throws Exception;
+	public ContactDTO fetchContact(String contactID) throws Exception;
 }

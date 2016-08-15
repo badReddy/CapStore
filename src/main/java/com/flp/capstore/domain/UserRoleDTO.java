@@ -1,6 +1,6 @@
 package com.flp.capstore.domain;
 
-public class UserRole {
+public class UserRoleDTO {
 	private String userName;
 	private String role;
 	public String getUserName() {

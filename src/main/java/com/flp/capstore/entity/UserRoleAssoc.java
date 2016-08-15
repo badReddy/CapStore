@@ -23,12 +23,12 @@ public class UserRoleAssoc implements Serializable {
 	private Timestamp updTsp;
 
 	//bi-directional many-to-one association to Role
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="role_id")
 	private Role role;
 
 	//bi-directional many-to-one association to User
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="user_name")
 	private User user;
 
